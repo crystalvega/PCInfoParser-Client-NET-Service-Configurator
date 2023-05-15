@@ -17,8 +17,8 @@ namespace PCInfoParser_Client_NET_Service_Configurator
         [STAThread]
         static void Main()
         {
-            string genPath = GetDirectory("Service\\General.txt");
-            string logFile = GetDirectory("Service\\PCInfoParser-Client-NET-Service.InstallLog");
+            string genPath = GetDirectory("General.txt");
+            string logFile = GetDirectory("PCInfoParser-Client-NET-Service.InstallLog");
             string iniFile = GetDirectory("PCInfoParser-Client.ini");
 
             Application.EnableVisualStyles();

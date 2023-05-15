@@ -15,13 +15,14 @@ namespace PCInfoParser_Client_NET_Service_Configurator
 {
     public partial class Configurator : Form
     {
-        Service service = new Service("PCInfoParcer");
+        Service service = new("PCInfoParcer");
         IniFile ini;
         public string[] user = new string[3];
         public string[] server = new string[3];
         public string app;
         public string genPath;
         public string logFile;
+        public string idClient;
         public Configurator(string iniFile, string genPath, string logFile)
         {
             OldConfig oldconfig = new("C:\\Program Files\\ConfigNKU\\confignku.txt");
@@ -107,7 +108,10 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             textBox5.Text = ini.GetValue("Server", "Port");
             textBox6.Text = ini.GetValue("Server", "Password");
             textBox7.Text = ini.GetValue("App", "Autosend");
+            idClient = ini.GetValue("User", "ID");
             PrintLayers();
+            if (idClient == "NeedToGet") this.label8.Text = "Ваш ID: Не получен";
+            else this.label8.Text = $"Ваш ID: {idClient}";
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

@@ -31,6 +31,7 @@ namespace PCInfoParser_Client_NET_Service_Configurator
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configurator));
             this.saveButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,15 +48,14 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             this.label3 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -211,16 +211,6 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Приложение";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(21, 323);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(395, 25);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Посмотреть Log";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label7
             // 
             this.label7.Location = new System.Drawing.Point(6, 23);
@@ -237,6 +227,16 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(123, 20);
             this.textBox7.TabIndex = 11;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(21, 323);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(395, 25);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Посмотреть Log";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -258,10 +258,9 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel3,
-            this.toolStripStatusLabel2});
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 411);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(434, 22);
@@ -274,25 +273,21 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(46, 17);
             this.toolStripStatusLabel1.Text = "{status}";
             // 
-            // toolStripStatusLabel2
+            // label8
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(241, 17);
-            this.toolStripStatusLabel3.Text = "                                                                              ";
+            this.label8.Location = new System.Drawing.Point(309, 411);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(107, 22);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Ваш ID: Не получен";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Configurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 433);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button3);
@@ -302,6 +297,7 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.saveButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Configurator";
@@ -345,7 +341,6 @@ namespace PCInfoParser_Client_NET_Service_Configurator
         private Button button3;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
-        private ToolStripStatusLabel toolStripStatusLabel2;
-        private ToolStripStatusLabel toolStripStatusLabel3;
+        private Label label8;
     }
 }
