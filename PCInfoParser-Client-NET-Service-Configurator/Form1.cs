@@ -20,15 +20,12 @@ namespace PCInfoParser_Client_NET_Service_Configurator
         public string[] user = new string[3];
         public string[] server = new string[3];
         public string app;
-        public string genPath;
-        public string logFile;
+        public string logFile = "PCInfoParser-Client-NET-Service.InstallLog";
         public string idClient;
-        public Configurator(string iniFile, string genPath, string logFile)
+        public Configurator()
         {
             OldConfig oldconfig = new("C:\\Program Files\\ConfigNKU\\confignku.txt");
-            ini = new(iniFile, oldconfig.GetValues());
-            this.logFile = logFile;
-            this.genPath = genPath;
+            ini = new("PCInfoParser-Client.ini", oldconfig.GetValues());
             InitializeComponent();
         }
 
@@ -162,25 +159,24 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             toolStripStatusLabel1.Text = "Останавливается";
             PrintLayers(3);
             service.Stop();
-            while (File.Exists(genPath))
-            {
-                await Task.Delay(500);
-            }
+            await Task.Delay(500);
             PrintLayers();
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            SaveButton_Click(sender, e);
-            toolStripStatusLabel1.Text = "Запускается";
-            PrintLayers(3);
-            service.Start();
-            while (!File.Exists(genPath))
-            {
+            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "" || textBox7.Text == "") MessageBox.Show("Заполните все поля!", "Ошибка");
+			else
+            { 
+                SaveButton_Click(sender, e);
+                toolStripStatusLabel1.Text = "Запускается";
+                PrintLayers(3);
+                service.Start();
                 await Task.Delay(500);
-            }
-            PrintLayers();
-        }
+			    this.label8.Text = $"Ваш ID: {idClient}";
+			    PrintLayers();
+			}
+		}
 
         private void button1_Click(object sender, EventArgs e)
         {

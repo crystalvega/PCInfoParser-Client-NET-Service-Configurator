@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,30 +12,28 @@ namespace PCInfoParser_Client_NET_Service_Configurator
 {
     internal static class Program
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
-        [STAThread]
-        static void Main()
+		static bool IsProcessOpen(string processName)
+		{
+			Process[] processes = Process.GetProcessesByName(processName);
+			return processes.Length > 1;
+		}
+		/// <summary>
+		/// Главная точка входа для приложения.
+		/// </summary>
+		[STAThread]
+        static int Main()
         {
-            string genPath = GetDirectory("General.txt");
-            string logFile = GetDirectory("PCInfoParser-Client-NET-Service.InstallLog");
-            string iniFile = GetDirectory("PCInfoParser-Client.ini");
+			if (IsProcessOpen("PCInfoParser-Client-NET-Configurator"))
+			{
+				MessageBox.Show("Приложение уже открыто!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return 1;
+			}
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            Application.Run(new Configurator(iniFile, genPath, logFile));
-        }
-
-        public static string GetDirectory(string filename)
-        {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            UriBuilder uri = new(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
-            path = Path.GetDirectoryName(path);
-            string Directory = Path.Combine(path, filename);
-            return Directory;
+             
+            Application.Run(new Configurator());
+            return 0;
         }
     }
     public class OldConfig
