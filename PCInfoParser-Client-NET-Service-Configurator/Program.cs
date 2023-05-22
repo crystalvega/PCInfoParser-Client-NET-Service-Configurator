@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PCInfoParser_Client_NET_Service_Configurator
@@ -22,6 +20,7 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             string iniFile = GetDirectory("PCInfoParser-Client.ini");
 
             Application.EnableVisualStyles();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.SetCompatibleTextRenderingDefault(false);
 
             Application.Run(new Configurator(iniFile, genPath, logFile));
@@ -29,7 +28,7 @@ namespace PCInfoParser_Client_NET_Service_Configurator
 
         public static string GetDirectory(string filename)
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            string codeBase =  AppDomain.CurrentDomain.BaseDirectory;
             UriBuilder uri = new(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
             path = Path.GetDirectoryName(path);
@@ -39,28 +38,32 @@ namespace PCInfoParser_Client_NET_Service_Configurator
     }
     public class OldConfig
     {
-        private string[] val = new string[5] { "", "", "", "", "" };
+        private string[] val = new string[5] { "?", "?", "?", "?", "" };
         private readonly string filename = "";
         public OldConfig(string filenameset)
         {
             this.filename = filenameset;
             if (File.Exists(this.filename))
             {
-                Load();
-            }
-        }
-
-        public void Load()
-        {
-            int i = 0;
-            using (var reader = new StreamReader(this.filename, Encoding.Default))
-            {
-                while (!reader.EndOfStream)
+                int i = 0;
+                int i2 = 0;
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                Encoding[] encode = new Encoding[3] { Encoding.GetEncoding(1251), Encoding.GetEncoding(1252), Encoding.GetEncoding("UTF-8") };
+                while (val.Contains("?") || val.Contains("�"))
                 {
-                    var line = reader.ReadLine().Trim();
-                    val[i] = line.Trim();
-                    i++;
+                    using (var reader = new StreamReader(this.filename, encode[i2]))
+                    {
+                        while (!reader.EndOfStream)
+                        {
+                            var line = reader.ReadLine().Trim();
+                            val[i] = line.Trim();
+                            i++;
+                        }
+                    }
+                    i = 0;
+                    i2++;
                 }
+                
             }
         }
 
