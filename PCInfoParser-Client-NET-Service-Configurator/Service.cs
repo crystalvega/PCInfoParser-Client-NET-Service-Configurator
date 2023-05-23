@@ -12,8 +12,8 @@ namespace PCInfoParser_Client_NET_Service_Configurator
         {
             _serviceName = serviceName;
 
-            this._controller = new();
-
+            _controller = new ServiceController(_serviceName);
+            
         }
 
         public string GetStatus()

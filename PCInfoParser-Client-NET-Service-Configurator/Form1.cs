@@ -20,12 +20,15 @@ namespace PCInfoParser_Client_NET_Service_Configurator
         public string[] user = new string[3];
         public string[] server = new string[3];
         public string app;
-        public string logFile = "PCInfoParser-Client-NET-Service.InstallLog";
+        public string genPath;
+        public string logFile;
         public string idClient;
-        public Configurator()
+        public Configurator(string iniFile, string genPath, string logFile)
         {
             OldConfig oldconfig = new("C:\\Program Files\\ConfigNKU\\confignku.txt");
-            ini = new("PCInfoParser-Client.ini", oldconfig.GetValues());
+            ini = new(iniFile, oldconfig.GetValues());
+            this.logFile = logFile;
+            this.genPath = genPath;
             InitializeComponent();
         }
 
@@ -159,24 +162,25 @@ namespace PCInfoParser_Client_NET_Service_Configurator
             toolStripStatusLabel1.Text = "Останавливается";
             PrintLayers(3);
             service.Stop();
-            await Task.Delay(500);
+            while (File.Exists(genPath))
+            {
+                await Task.Delay(500);
+            }
             PrintLayers();
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "" || textBox7.Text == "") MessageBox.Show("Заполните все поля!", "Ошибка");
-			else
-            { 
-                SaveButton_Click(sender, e);
-                toolStripStatusLabel1.Text = "Запускается";
-                PrintLayers(3);
-                service.Start();
+            SaveButton_Click(sender, e);
+            toolStripStatusLabel1.Text = "Запускается";
+            PrintLayers(3);
+            service.Start();
+            while (!File.Exists(genPath))
+            {
                 await Task.Delay(500);
-			    this.label8.Text = $"Ваш ID: {idClient}";
-			    PrintLayers();
-			}
-		}
+            }
+            PrintLayers();
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
